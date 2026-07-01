@@ -2,7 +2,7 @@
 
 [中文说明](docs/README.zh-CN.md)
 
-Vibe Coding Context Engineering is a Codex workflow package for building recoverable, verifiable AI-assisted software workspaces. It packages a Vibe Coding B+ operating model as project-local rules, Codex hooks, deterministic verification scripts, a reusable Codex skill, and an installable local Codex plugin.
+Vibe Coding Context Engineering is a Codex workflow package for building recoverable, verifiable AI-assisted software workspaces. It packages a project-local Vibe Coding workflow as Codex rules, hooks, deterministic verification scripts, a reusable skill, and an installable local plugin.
 
 The goal is simple: keep AI coding fast without losing the engineering controls that make long-running work trustworthy.
 
@@ -18,7 +18,7 @@ The goal is simple: keep AI coding fast without losing the engineering controls 
 
 ## Core Model
 
-Vibe Coding B+ separates durable project intent from dynamic AI working state:
+The Vibe Coding workflow separates durable project intent from dynamic AI working state:
 
 ```text
 docs/       stable human-facing design context
@@ -72,7 +72,7 @@ codex plugin add vibe-coding@local-vibe-coding
 Start a new Codex thread and invoke the skill:
 
 ```text
-Use $vibe-coding-3 to initialize or operate this Vibe Coding B+ workspace.
+Use $vibe-coding-3 to initialize or operate this Vibe Coding workflow workspace.
 ```
 
 See [docs/runbooks/vibe-plugin-installation.md](docs/runbooks/vibe-plugin-installation.md) for reinstall, update, hook review, and smoke-test details.

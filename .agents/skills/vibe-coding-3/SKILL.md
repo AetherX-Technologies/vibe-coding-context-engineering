@@ -1,11 +1,11 @@
 ---
 name: vibe-coding-3
-description: Initialize or operate a Vibe Coding B+ software workspace with repo-local AGENTS.md guidance, Codex hooks, project-local verification scripts, filesystem context, scratchpad log masking, ADR capture, and context-budget discipline. Use when setting up or maintaining Codex project rules, AI coding workflow scaffolds, Vibe Coding B+ Phase 1/2 workflows, or reusable context-engineering conventions; do not use for one-off code edits that do not need persistent workflow state.
+description: Initialize or operate a Vibe Coding workflow workspace with repo-local AGENTS.md guidance, Codex hooks, project-local verification scripts, filesystem context, scratchpad log masking, ADR capture, and context-budget discipline. Use when setting up or maintaining Codex project rules, AI coding workflow scaffolds, or reusable context-engineering conventions; do not use for one-off code edits that do not need persistent workflow state.
 ---
 
 # Vibe Coding 3
 
-Use this skill to initialize, inspect, or operate a Vibe Coding B+ workspace. Keep the runtime project-local: hooks call project `scripts/vibe/*`, while this skill provides reusable workflow guidance and installation helpers.
+Use this skill to initialize, inspect, or operate a Vibe Coding workflow workspace. Keep the runtime project-local: hooks call project `scripts/vibe/*`, while this skill provides reusable workflow guidance and installation helpers.
 
 ## Operating Flow
 
@@ -27,13 +27,13 @@ Use this skill to initialize, inspect, or operate a Vibe Coding B+ workspace. Ke
 
 ## Script Routing
 
-- Use `scripts/install_project_scripts.py` to install or refresh a project-local B+ scaffold in a target workspace.
+- Use `scripts/install_project_scripts.py` to install or refresh a project-local workflow scaffold in a target workspace.
 - Use `scripts/generate_project_hooks.py` to print canonical `.codex/hooks.json` for a target workspace.
 - Do not configure `.codex/hooks.json` to call skill scripts directly. Runtime hooks must call project-local `.codex/hooks/*.py` and `scripts/vibe/*.py`.
 
 ## Verification
 
-After changing a B+ workspace, run:
+After changing a Vibe Coding workflow workspace, run:
 
 ```bash
 rtk test python3 scripts/vibe/verify_context_state.py --root .

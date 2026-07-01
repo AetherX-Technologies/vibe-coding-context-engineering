@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Shared policy helpers for Vibe Coding B+ hooks and verifiers."""
+"""Shared policy helpers for Vibe Coding workflow hooks and verifiers."""
 
 from __future__ import annotations
 

@@ -1,2 +1,1 @@
-"""Vibe Coding B+ project-local utilities."""
-
+"""Vibe Coding project-local workflow utilities."""

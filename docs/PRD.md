@@ -1,8 +1,8 @@
-# PRD: Vibe Coding B+ Phase 1
+# PRD: Vibe Coding Workflow Scaffold
 
 ## Goal
 
-Implement the Phase 1 Vibe Coding B+ minimum loop for this workspace:
+Implement the minimum Vibe Coding workflow loop for this workspace:
 
 - project instructions
 - Codex hook configuration
@@ -14,8 +14,8 @@ Implement the Phase 1 Vibe Coding B+ minimum loop for this workspace:
 
 ## Non-goals
 
-- Do not create a full plugin package in Phase 1.
-- Do not create the reusable repo skill in Phase 1.
+- Do not require a full plugin package before the project-local workflow works.
+- Do not require the reusable repo skill before the project-local workflow works.
 - Do not assume the workspace is a git repository.
 
 ## Users
@@ -31,4 +31,3 @@ Implement the Phase 1 Vibe Coding B+ minimum loop for this workspace:
 - Secret-like additions are denied for `apply_patch`.
 - Stop-phase verification requires current changed-files evidence.
 - Local verification scripts pass and append verification evidence.
-

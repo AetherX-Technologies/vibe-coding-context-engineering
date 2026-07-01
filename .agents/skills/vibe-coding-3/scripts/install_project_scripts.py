@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Install the project-local Vibe Coding B+ scaffold into a target workspace."""
+"""Install the project-local Vibe Coding workflow scaffold into a target workspace."""
 
 from __future__ import annotations
 
@@ -54,7 +54,7 @@ DIRS_TO_CREATE = [
 ]
 
 SEED_FILES = {
-    ".context/plan.md": "# Vibe Coding B+ Plan\n\n## Current Goal\n\nTBD\n",
+    ".context/plan.md": "# Vibe Coding Workflow Plan\n\n## Current Goal\n\nTBD\n",
     ".context/state.json": (
         "{\n"
         '  "current_goal": "TBD",\n'
@@ -92,7 +92,7 @@ def write_seed(rel: str, content: str, target_root: Path, force: bool) -> str:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Install Vibe Coding B+ project scaffold")
+    parser = argparse.ArgumentParser(description="Install Vibe Coding workflow project scaffold")
     parser.add_argument("--target", required=True, help="Target workspace root")
     parser.add_argument("--force", action="store_true", help="Overwrite existing files")
     args = parser.parse_args()

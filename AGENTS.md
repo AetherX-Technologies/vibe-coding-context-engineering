@@ -1,8 +1,8 @@
-# Vibe Coding B+ Project Instructions
+# Vibe Coding Workflow Project Instructions
 
 ## Working Contract
 
-- Treat this repository as a Vibe Coding B+ workspace.
+- Treat this repository as a Vibe Coding workflow workspace.
 - Use `rtk` for normal shell commands. Use raw shell only when debugging hook behavior or when `rtk` would hide required details; state the reason.
 - Keep durable project intent in `docs/`.
 - Keep dynamic AI working state in `.context/`.
@@ -36,7 +36,7 @@ Avoid reading full scratchpad logs unless the summary is insufficient.
 
 ## Verification Contract
 
-For Phase 1 B+ work, minimum local verification is:
+For workflow scaffold work, minimum local verification is:
 
 ```bash
 rtk test python3 scripts/vibe/verify_context_state.py --root .
@@ -45,4 +45,3 @@ rtk test python3 scripts/vibe/check_verification_freshness.py --root .
 ```
 
 Completion requires either passing verification evidence in `.context/verification.jsonl` or a concrete blocker explaining why verification cannot run.
-

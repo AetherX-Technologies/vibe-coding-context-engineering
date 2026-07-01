@@ -52,7 +52,7 @@ Then restart Codex or start a new thread before testing the plugin. New threads 
 In a new Codex thread, invoke the skill explicitly:
 
 ```text
-Use $vibe-coding-3 to initialize or operate this Vibe Coding B+ workspace.
+Use $vibe-coding-3 to initialize or operate this Vibe Coding workflow workspace.
 ```
 
 If hooks are shown for review, inspect and trust them through Codex's hook review UI before relying on lifecycle enforcement.
@@ -79,7 +79,7 @@ When plugin files change locally:
 
 ## Scaffold Smoke Test
 
-To verify the plugin can install a project-local B+ scaffold:
+To verify the plugin can install a project-local workflow scaffold:
 
 ```bash
 rtk proxy rm -rf /tmp/vibe-plugin-scaffold-test

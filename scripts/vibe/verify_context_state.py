@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify the Vibe Coding B+ scaffold is present and parseable."""
+"""Verify the Vibe Coding workflow scaffold is present and parseable."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ from policy import build_arg_parser, require_paths, workspace_root
 
 
 def main() -> int:
-    parser = build_arg_parser("Verify Vibe Coding B+ scaffold")
+    parser = build_arg_parser("Verify Vibe Coding workflow scaffold")
     args = parser.parse_args()
     root = workspace_root(args.root)
 
@@ -44,4 +44,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

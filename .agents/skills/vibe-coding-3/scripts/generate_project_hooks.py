@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate canonical Vibe Coding B+ .codex/hooks.json content."""
+"""Generate canonical Vibe Coding workflow .codex/hooks.json content."""
 
 from __future__ import annotations
 
@@ -90,4 +90,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

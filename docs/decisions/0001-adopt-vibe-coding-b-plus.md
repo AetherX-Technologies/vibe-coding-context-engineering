@@ -1,4 +1,6 @@
-# ADR-0001: Adopt Vibe Coding B+ Before Plugin Packaging
+# ADR-0001: Adopt a Project-Local Workflow Scaffold Before Plugin Packaging
+
+Note: "B+" was the internal planning label for the project-local workflow scaffold: repo instructions, Codex hooks, deterministic verification scripts, and filesystem working state before broad plugin distribution.
 
 **Date**: 2026-07-01  
 **Status**: accepted  
@@ -10,7 +12,7 @@ The workspace needs Codex hooks, project instructions, deterministic verificatio
 
 ## Decision
 
-Adopt Vibe Coding B+ as the Phase 1 implementation target: repo-local `AGENTS.md`, `.codex/hooks.json`, hook scripts, `scripts/vibe` verification tools, `.context`, and `docs`.
+Adopt the project-local Vibe Coding workflow scaffold as the first implementation target: repo-local `AGENTS.md`, `.codex/hooks.json`, hook scripts, `scripts/vibe` verification tools, `.context`, and `docs`.
 
 ## Alternatives Considered
 
@@ -42,4 +44,3 @@ Adopt Vibe Coding B+ as the Phase 1 implementation target: repo-local `AGENTS.md
 ### Risks
 
 - Hook coverage is incomplete; mitigate with deterministic scripts and later CI/git hooks.
-

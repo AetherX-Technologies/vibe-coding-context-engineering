@@ -4,7 +4,7 @@ Use ADRs for durable decisions that shape the project.
 
 ## Record An ADR When
 
-- Choosing B+ over pure skill or immediate plugin packaging.
+- Choosing the project-local workflow scaffold over pure skill or immediate plugin packaging.
 - Changing hook policy or safety behavior.
 - Changing verification fingerprint semantics.
 - Changing scaffold structure.
@@ -43,4 +43,3 @@ What was rejected and why.
 
 Positive, negative, and risk notes.
 ```
-

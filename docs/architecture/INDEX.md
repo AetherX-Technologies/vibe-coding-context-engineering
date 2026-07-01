@@ -1,8 +1,8 @@
 # Architecture Index
 
-## Vibe Coding B+ Runtime
+## Vibe Coding Workflow Runtime
 
-The Phase 1 runtime is project-local:
+The runtime is project-local:
 
 - `AGENTS.md` provides durable project instructions.
 - `.codex/hooks.json` binds Codex lifecycle events to project hook scripts.
@@ -19,4 +19,3 @@ Hooks do not provide a complete security boundary. They are guardrails around su
 
 - [CODEX_HOOK_SKILL_GOVERNANCE_PLAN.md](../../CODEX_HOOK_SKILL_GOVERNANCE_PLAN.md)
 - [AGENTS.md](../../AGENTS.md)
-
