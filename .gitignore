@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local environments and dependencies
+.venv/
+venv/
+node_modules/
+
+# OS/editor noise
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs and generated archives
+*.log
+*.tmp
+dist/
+build/
+*.zip
+*.tar
+*.tar.gz
+
+# Local AI/runtime state
+.cocoindex_code/
+vibe-coding-*.json
+.context/scratchpads/*
+!.context/scratchpads/.gitkeep
+.context/checkpoints/*
+!.context/checkpoints/.gitkeep
+.context/agents/*
+!.context/agents/.gitkeep
+
+# Local secrets
+.env
+.env.*
+!.env.example

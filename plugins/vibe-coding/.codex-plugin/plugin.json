@@ -1,0 +1,27 @@
+{
+  "name": "vibe-coding",
+  "version": "0.1.0",
+  "description": "Vibe Coding B+ workflow plugin with repo skill, Codex hook bundle, and project-local scaffold templates for context-engineered AI coding.",
+  "author": {
+    "name": "Vibe Coding Context Engineering"
+  },
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Vibe Coding",
+    "shortDescription": "B+ workflow for Codex hooks, project-local verification, filesystem context, and ADR-backed agentic development.",
+    "longDescription": "Packages the vibe-coding-3 skill plus hook and scaffold templates for local Vibe Coding B+ workflows. Runtime hooks in installed projects should call project-local scripts, not plugin or skill scripts.",
+    "developerName": "Vibe Coding Context Engineering",
+    "category": "Productivity",
+    "capabilities": [
+      "Skills",
+      "Hooks",
+      "Scaffold",
+      "Verification"
+    ],
+    "defaultPrompt": [
+      "Use $vibe-coding-3 to initialize or operate a Vibe Coding B+ project.",
+      "Run project-local verification before reporting completion."
+    ]
+  }
+}
