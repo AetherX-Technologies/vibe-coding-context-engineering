@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "sh -lc 'ROOT=\"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"; /usr/bin/python3 \"$ROOT/.codex/hooks/user_prompt_submit_router.py\"'",
+            "command": "sh -lc 'ROOT=\"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"; SCRIPT=\"$ROOT/.codex/hooks/user_prompt_submit_router.py\"; if [ ! -f \"$SCRIPT\" ]; then exit 0; fi; /usr/bin/python3 \"$SCRIPT\"'",
             "timeout": 30,
             "statusMessage": "Routing Vibe context"
           }
@@ -18,7 +18,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "sh -lc 'ROOT=\"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"; /usr/bin/python3 \"$ROOT/.codex/hooks/pre_tool_use_policy.py\"'",
+            "command": "sh -lc 'ROOT=\"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"; SCRIPT=\"$ROOT/.codex/hooks/pre_tool_use_policy.py\"; if [ ! -f \"$SCRIPT\" ]; then exit 0; fi; /usr/bin/python3 \"$SCRIPT\"'",
             "timeout": 30,
             "statusMessage": "Checking Vibe tool policy"
           }
@@ -31,7 +31,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "sh -lc 'ROOT=\"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"; /usr/bin/python3 \"$ROOT/.codex/hooks/post_tool_use_review.py\"'",
+            "command": "sh -lc 'ROOT=\"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"; SCRIPT=\"$ROOT/.codex/hooks/post_tool_use_review.py\"; if [ ! -f \"$SCRIPT\" ]; then exit 0; fi; /usr/bin/python3 \"$SCRIPT\"'",
             "timeout": 30,
             "statusMessage": "Reviewing Vibe command output"
           }
@@ -44,7 +44,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "sh -lc 'ROOT=\"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"; /usr/bin/python3 \"$ROOT/.codex/hooks/pre_compact_checkpoint.py\"'",
+            "command": "sh -lc 'ROOT=\"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"; SCRIPT=\"$ROOT/.codex/hooks/pre_compact_checkpoint.py\"; if [ ! -f \"$SCRIPT\" ]; then exit 0; fi; /usr/bin/python3 \"$SCRIPT\"'",
             "timeout": 30,
             "statusMessage": "Checking Vibe checkpoint"
           }
@@ -56,7 +56,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "sh -lc 'ROOT=\"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"; /usr/bin/python3 \"$ROOT/.codex/hooks/stop_verification_gate.py\"'",
+            "command": "sh -lc 'ROOT=\"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"; SCRIPT=\"$ROOT/.codex/hooks/stop_verification_gate.py\"; if [ ! -f \"$SCRIPT\" ]; then exit 0; fi; /usr/bin/python3 \"$SCRIPT\"'",
             "timeout": 30,
             "statusMessage": "Checking Vibe verification gate"
           }
@@ -65,4 +65,3 @@
     ]
   }
 }
-
