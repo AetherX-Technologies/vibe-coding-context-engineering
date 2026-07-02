@@ -9,7 +9,9 @@ import json
 def hook_command(script_name: str) -> str:
     return (
         "sh -lc 'ROOT=\"$(git rev-parse --show-toplevel 2>/dev/null || pwd)\"; "
-        f"/usr/bin/python3 \"$ROOT/.codex/hooks/{script_name}\"'"
+        f"SCRIPT=\"$ROOT/.codex/hooks/{script_name}\"; "
+        "if [ ! -f \"$SCRIPT\" ]; then exit 0; fi; "
+        "/usr/bin/python3 \"$SCRIPT\"'"
     )
 
 
