@@ -7,7 +7,11 @@ import sys
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts/vibe"))
 
-from verify_plugin_phase3 import verify_manifest_contract  # noqa: E402
+from verify_plugin_phase3 import (  # noqa: E402
+    iter_hook_commands,
+    verify_manifest_contract,
+    verify_plugin_hooks_fail_open_without_scaffold,
+)
 
 
 VALID_MANIFEST = {
@@ -56,6 +60,67 @@ class PluginManifestContractTests(unittest.TestCase):
         verify_manifest_contract(manifest, errors)
 
         self.assertIn("plugin.json interface.capabilities must be an array of non-empty strings", errors)
+
+
+class PluginHookContractTests(unittest.TestCase):
+    def test_iter_hook_commands_extracts_nested_commands(self) -> None:
+        hooks = {
+            "hooks": {
+                "UserPromptSubmit": [
+                    {
+                        "hooks": [
+                            {"type": "command", "command": "true"},
+                            {"type": "prompt", "prompt": "ignored"},
+                        ]
+                    }
+                ]
+            }
+        }
+
+        self.assertEqual(iter_hook_commands(hooks), ["true"])
+
+    def test_plugin_hooks_must_fail_open_without_project_scaffold(self) -> None:
+        hooks = {
+            "hooks": {
+                "UserPromptSubmit": [
+                    {
+                        "hooks": [
+                            {
+                                "type": "command",
+                                "command": "sh -lc 'SCRIPT=\"$PWD/.codex/hooks/missing.py\"; if [ ! -f \"$SCRIPT\" ]; then exit 0; fi; /usr/bin/python3 \"$SCRIPT\"'",
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+        errors: list[str] = []
+
+        verify_plugin_hooks_fail_open_without_scaffold(hooks, errors)
+
+        self.assertEqual(errors, [])
+
+    def test_plugin_hooks_report_missing_script_failures(self) -> None:
+        hooks = {
+            "hooks": {
+                "UserPromptSubmit": [
+                    {
+                        "hooks": [
+                            {
+                                "type": "command",
+                                "command": "sh -lc '/usr/bin/python3 \"$PWD/.codex/hooks/missing.py\"'",
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+        errors: list[str] = []
+
+        verify_plugin_hooks_fail_open_without_scaffold(hooks, errors)
+
+        self.assertEqual(len(errors), 1)
+        self.assertIn("must exit 0 when project scaffold scripts are absent", errors[0])
 
 
 if __name__ == "__main__":

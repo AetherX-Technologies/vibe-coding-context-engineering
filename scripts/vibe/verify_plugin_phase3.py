@@ -92,6 +92,45 @@ def verify_install_smoke(plugin_root: Path, errors: list[str]) -> None:
             if not (target / rel).exists():
                 errors.append(f"Plugin install smoke did not create required file: {rel}")
 
+def iter_hook_commands(hooks_config: dict) -> list[str]:
+    commands: list[str] = []
+    hooks = hooks_config.get("hooks")
+    if not isinstance(hooks, dict):
+        return commands
+    for groups in hooks.values():
+        if not isinstance(groups, list):
+            continue
+        for group in groups:
+            if not isinstance(group, dict):
+                continue
+            handlers = group.get("hooks")
+            if not isinstance(handlers, list):
+                continue
+            for handler in handlers:
+                if not isinstance(handler, dict):
+                    continue
+                command = handler.get("command")
+                if isinstance(command, str) and command.strip():
+                    commands.append(command)
+    return commands
+
+def verify_plugin_hooks_fail_open_without_scaffold(hooks_config: dict, errors: list[str]) -> None:
+    commands = iter_hook_commands(hooks_config)
+    if not commands:
+        errors.append("plugin hooks/hooks.json must define command hooks")
+        return
+
+    with tempfile.TemporaryDirectory(prefix="vibe-plugin-hooks-") as tmp:
+        cwd = Path(tmp)
+        for command in commands:
+            result = subprocess.run(command, cwd=cwd, shell=True, check=False, capture_output=True, text=True)
+            if result.returncode != 0:
+                output = (result.stderr or result.stdout).strip()
+                errors.append(
+                    "Plugin hook command must exit 0 when project scaffold scripts are absent: "
+                    f"{command!r} exited {result.returncode}: {output}"
+                )
+
 def non_empty_string(value: object) -> bool:
     return isinstance(value, str) and bool(value.strip())
 
@@ -176,6 +215,7 @@ def main() -> int:
             errors.append("plugin hooks must not call repo skill scripts directly")
         if "plugins/vibe-coding" in hooks_text:
             errors.append("plugin hooks must not hardcode this development plugin path")
+        verify_plugin_hooks_fail_open_without_scaffold(hooks, errors)
 
     for path in plugin_root.rglob("*"):
         parts = set(path.relative_to(plugin_root).parts)
