@@ -45,6 +45,14 @@ From a shell where `codex` is available:
 codex plugin add vibe-coding@local-vibe-coding
 ```
 
+When refreshing an already-installed local plugin after source changes, remove
+the cached install first:
+
+```bash
+codex plugin remove vibe-coding@local-vibe-coding
+codex plugin add vibe-coding@local-vibe-coding
+```
+
 Then restart Codex or start a new thread before testing the plugin. New threads are the safe boundary for loading updated plugin skills and lifecycle configuration.
 
 ## Use After Install
@@ -70,6 +78,7 @@ When plugin files change locally:
 2. Reinstall the plugin from the repo marketplace:
 
    ```bash
+   codex plugin remove vibe-coding@local-vibe-coding
    codex plugin add vibe-coding@local-vibe-coding
    ```
 
@@ -88,6 +97,45 @@ rtk test python3 /tmp/vibe-plugin-scaffold-test/scripts/vibe/verify_all.py --roo
 ```
 
 The scaffold check should pass without requiring the repo skill or plugin package in the target project.
+
+## Updating An Existing Target Project
+
+Plugin reinstall updates Codex's plugin cache; it does not mutate projects that
+already copied scaffold files. For an existing target workspace, update only the
+project-local runtime files:
+
+```bash
+TARGET=/path/to/target-project
+PLUGIN=/Users/blueice/.codex/plugins/cache/local-vibe-coding/vibe-coding/0.1.1/scaffold
+
+mkdir -p "$TARGET/.codex/hooks" "$TARGET/scripts/vibe"
+cp "$PLUGIN/.codex/hooks.json" "$TARGET/.codex/hooks.json"
+cp "$PLUGIN/.codex/hooks/"*.py "$TARGET/.codex/hooks/"
+cp "$PLUGIN/scripts/vibe/"*.py "$TARGET/scripts/vibe/"
+```
+
+Then start a new Codex thread in the target project and run:
+
+```bash
+rtk test python3 scripts/vibe/verify_all.py --root . --profile phase1 --record
+rtk test python3 scripts/vibe/check_verification_freshness.py --root .
+```
+
+This update path intentionally leaves target-specific `AGENTS.md`, `docs/`,
+and `.context/plan.md` untouched.
+
+## Current Runtime Expectations
+
+- Hook commands resolve project-local scripts through `git rev-parse
+  --show-toplevel || pwd` and skip missing scripts.
+- Non-git fallback fingerprints ignore top-level runtime/cache directories:
+  `.pytest_cache/`, `.ruff_cache/`, `.mypy_cache/`, `data/`, `exports/`, and
+  `htmlcov/`.
+- Source directories with the same name, such as `src/**/exports/`, remain in
+  the verification fingerprint.
+- `PreCompact` blocks only when base state files are missing. When base state
+  exists, it writes a fresh minimal auto checkpoint and keeps the latest 10
+  auto checkpoints.
 
 ## Notes
 

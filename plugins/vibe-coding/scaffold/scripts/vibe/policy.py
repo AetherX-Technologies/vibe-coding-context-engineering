@@ -7,7 +7,6 @@ import argparse
 import fnmatch
 import hashlib
 import json
-import os
 import re
 import subprocess
 import sys
@@ -26,6 +25,15 @@ IGNORED_DIRS = {
     "venv",
     "dist",
     "build",
+}
+
+TOP_LEVEL_IGNORED_DIRS = {
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    "data",
+    "exports",
+    "htmlcov",
 }
 
 IGNORED_FILE_PATTERNS = [
@@ -215,10 +223,14 @@ def bash_policy(command: str) -> tuple[str, str]:
 
 
 def is_ignored_path(path: Path) -> bool:
-    parts = set(path.parts)
-    if parts & IGNORED_DIRS:
+    parts = path.parts
+    if parts and parts[0] in TOP_LEVEL_IGNORED_DIRS:
+        return True
+    if set(parts) & IGNORED_DIRS:
         return True
     name = path.name
+    if name == ".env" or (name.startswith(".env.") and name != ".env.example"):
+        return True
     return any(fnmatch.fnmatch(name, pattern) for pattern in IGNORED_FILE_PATTERNS)
 
 

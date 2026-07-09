@@ -69,6 +69,13 @@ Install the plugin:
 codex plugin add vibe-coding@local-vibe-coding
 ```
 
+Refresh an already-installed local copy after changing plugin files:
+
+```bash
+codex plugin remove vibe-coding@local-vibe-coding
+codex plugin add vibe-coding@local-vibe-coding
+```
+
 Start a new Codex thread and invoke the skill:
 
 ```text
@@ -90,6 +97,22 @@ Then verify the target project:
 ```bash
 python3 /path/to/target-project/scripts/vibe/verify_all.py --root /path/to/target-project --profile phase1
 ```
+
+For a target project that already has an older scaffold, update only the
+project-local runtime files:
+
+```bash
+TARGET=/path/to/target-project
+PLUGIN=/Users/blueice/.codex/plugins/cache/local-vibe-coding/vibe-coding/0.1.1/scaffold
+
+mkdir -p "$TARGET/.codex/hooks" "$TARGET/scripts/vibe"
+cp "$PLUGIN/.codex/hooks.json" "$TARGET/.codex/hooks.json"
+cp "$PLUGIN/.codex/hooks/"*.py "$TARGET/.codex/hooks/"
+cp "$PLUGIN/scripts/vibe/"*.py "$TARGET/scripts/vibe/"
+```
+
+This does not overwrite the target project's `AGENTS.md`, `docs/`, or
+`.context/plan.md`.
 
 ## Verification
 
@@ -124,6 +147,16 @@ tests/vibe/               stdlib regression tests
 ## Status
 
 This project is an early open-source release of a local Codex workflow system. The scripts are intentionally dependency-light and use Python standard library tests. Treat hooks as enforcement aids, not as a replacement for code review and project-specific judgment.
+
+Current scaffold behavior:
+
+- Project hooks resolve scripts with a git-root fallback and skip missing
+  project-local hook files instead of failing across unrelated directories.
+- Non-git verification fingerprints ignore top-level runtime artifacts such as
+  `exports/`, `data/`, `.pytest_cache/`, and `.ruff_cache/`, while keeping
+  source paths such as `src/**/exports/`.
+- `PreCompact` writes a fresh minimal auto checkpoint from `.context/state.json`
+  and latest verification evidence whenever base state exists.
 
 ## License
 

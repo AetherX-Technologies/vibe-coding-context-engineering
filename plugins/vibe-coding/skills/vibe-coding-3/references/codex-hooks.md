@@ -18,7 +18,7 @@ Prefer `.codex/hooks.json` for this workflow. If both exist in the same layer, C
 | `UserPromptSubmit` | Add Vibe routing context for implementation, hook, release, or security prompts |
 | `PreToolUse` | Deny destructive Bash and high-signal secrets in `apply_patch` |
 | `PostToolUse` | Record verification outcomes and feed failures back to the model |
-| `PreCompact` | Ensure state and checkpoint evidence exists before compaction |
+| `PreCompact` | Block compaction if base state is missing; otherwise write a fresh auto checkpoint |
 | `Stop` | Continue the turn when current changes lack fresh passed verification |
 
 ## Runtime Rules
@@ -42,4 +42,3 @@ ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 ```
 
 Runtime `.codex/hooks.json` must call project-local scripts, not skill scripts.
-

@@ -56,3 +56,29 @@ GitHub Actions `Vibe Verify` passed on `main`.
 ## Next Action
 
 Use issues and pull requests for follow-up changes.
+
+## Follow-Up: Plugin Hook Runtime Update
+
+Goal: publish the updated Vibe Coding plugin hook runtime to GitHub.
+
+Scope:
+
+- Refresh plugin scaffold `PreCompact` behavior to write a fresh minimal auto
+  checkpoint whenever base state exists.
+- Ignore top-level runtime/cache directories in non-git fallback fingerprints
+  while preserving source paths such as `src/**/exports/`.
+- Document plugin cache refresh, existing target-project scaffold updates, and
+  the current runtime expectations in English and Chinese docs.
+- Record ADR-0002 for the hook runtime behavior decision.
+
+Verification:
+
+```bash
+rtk ruff check scripts/vibe/policy.py plugins/vibe-coding/scaffold/scripts/vibe/policy.py
+rtk test env PYTHONDONTWRITEBYTECODE=1 python3 scripts/vibe/verify_context_state.py --root .
+rtk test env PYTHONDONTWRITEBYTECODE=1 python3 scripts/vibe/scan_secrets.py --root .
+rtk proxy npx --yes markdown-link-check README.md
+rtk proxy npx --yes markdown-link-check docs/README.zh-CN.md
+rtk test env PYTHONDONTWRITEBYTECODE=1 python3 scripts/vibe/verify_all.py --root . --profile auto --record --turn-id publish-plugin-hook-runtime-update
+rtk test env PYTHONDONTWRITEBYTECODE=1 python3 scripts/vibe/check_verification_freshness.py --root .
+```

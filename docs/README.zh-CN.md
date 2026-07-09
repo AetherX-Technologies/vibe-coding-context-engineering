@@ -60,6 +60,13 @@ codex plugin marketplace add /absolute/path/to/vibe-coding-context-engineering
 codex plugin add vibe-coding@local-vibe-coding
 ```
 
+如果插件源码已经更新，刷新本地已安装版本：
+
+```bash
+codex plugin remove vibe-coding@local-vibe-coding
+codex plugin add vibe-coding@local-vibe-coding
+```
+
 然后开启新的 Codex 线程，显式调用 skill：
 
 ```text
@@ -84,6 +91,20 @@ python3 plugins/vibe-coding/skills/vibe-coding-3/scripts/install_project_scripts
 python3 /path/to/target-project/scripts/vibe/verify_all.py --root /path/to/target-project --profile phase1
 ```
 
+如果目标项目已经安装过旧脚手架，只更新项目本地运行时文件：
+
+```bash
+TARGET=/path/to/target-project
+PLUGIN=/Users/blueice/.codex/plugins/cache/local-vibe-coding/vibe-coding/0.1.1/scaffold
+
+mkdir -p "$TARGET/.codex/hooks" "$TARGET/scripts/vibe"
+cp "$PLUGIN/.codex/hooks.json" "$TARGET/.codex/hooks.json"
+cp "$PLUGIN/.codex/hooks/"*.py "$TARGET/.codex/hooks/"
+cp "$PLUGIN/scripts/vibe/"*.py "$TARGET/scripts/vibe/"
+```
+
+这不会覆盖目标项目自己的 `AGENTS.md`、`docs/` 或 `.context/plan.md`。
+
 ## 验收方式
 
 主要本地验收命令：
@@ -107,6 +128,10 @@ CI 会运行完整验证，但不会写入本地验收记录。
 - `.context/` 是动态工作状态；公开仓库只保留最小可恢复状态。
 - 插件安装后建议开启新 Codex 线程测试，因为 plugin/skill 更新通常需要新的加载边界。
 - 运行时 hooks 应调用项目本地 `.codex/hooks/` 和 `scripts/vibe/`，不要依赖 plugin cache 里的脚本。
+- 非 git 项目的验证指纹会忽略顶层 `exports/`、`data/`、`.pytest_cache/`
+  等运行产物，但不会忽略源码里的 `src/**/exports/`。
+- `PreCompact` 会在基础状态存在时自动写入一个最小 checkpoint，便于
+  compact 或 resume 后恢复上下文。
 
 ## 许可证
 

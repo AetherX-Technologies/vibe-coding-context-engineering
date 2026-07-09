@@ -23,7 +23,8 @@
 - `PreToolUse` for Bash warns or denies ordinary project commands that omit `rtk`, within the boundary defined in `AGENTS.md`.
 - `PreToolUse` for `apply_patch` denies high-signal secrets.
 - `PostToolUse` records failed verification summaries when possible.
-- `PreCompact` warns when state or checkpoint evidence is missing.
+- `PreCompact` blocks when base state is missing and writes a fresh auto
+  checkpoint when base state exists.
 - `Stop` prevents finalization when changed files lack a matching passed verification fingerprint.
 
 ## Verification Behavior
@@ -32,4 +33,3 @@
 - Verification scripts fail with actionable messages.
 - Verification records include `session_id`, `turn_id`, `changed_files`, and `changed_files_fingerprint`.
 - Long command output has a `.summary.md` sidecar.
-

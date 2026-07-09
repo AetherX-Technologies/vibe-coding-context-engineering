@@ -1,9 +1,9 @@
 {
-  "current_goal": "Open-source the repository on GitHub",
-  "phase": "open-source-release",
-  "active_task": "published",
+  "current_goal": "Publish updated Vibe Coding plugin hook runtime to GitHub",
+  "phase": "plugin-runtime-update",
+  "active_task": "ready-to-push",
   "blocked": false,
-  "last_green_command": "python3 scripts/vibe/verify_all.py --root . --profile full",
-  "next_action": "Use issues and pull requests for follow-up changes",
-  "updated_at": "2026-07-01T14:07:29Z"
+  "last_green_command": "rtk proxy npx --yes markdown-link-check docs/README.zh-CN.md",
+  "next_action": "Run full verification, commit the plugin runtime update, and push to GitHub.",
+  "updated_at": "2026-07-09T15:21:00+08:00"
 }

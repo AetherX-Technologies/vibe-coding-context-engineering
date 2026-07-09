@@ -266,15 +266,17 @@ secret scan 要支持例外：
 
 职责：
 
-- 检查 `.context/state.json` 是否存在且近期更新。
-- 检查是否有 checkpoint。
-- 如果状态缺失，返回 `continue: false` 或 `systemMessage`，要求下一步先写 checkpoint。
+- 检查 `.context/state.json` 和 `.context/plan.md` 是否存在。
+- 如果基础状态缺失，返回 `continue: false`，要求先恢复基础状态。
+- 如果基础状态存在，写入一个从 `.context/state.json` 和最新 verification
+  记录派生的最小 auto checkpoint。
 
 注意：
 
-- `PreCompact` 本身不应该尝试替模型生成完整 checkpoint；hook 脚本只能做机械检查和短提示。
-- 真正的 checkpoint 内容应由 Codex 根据当前任务上下文写入 `.context/checkpoints/`。
-- 如果 hook 自动写文件，只能写非常小的机器状态标记，不能把不稳定 transcript 当作长期事实来源。
+- `PreCompact` 不应该尝试替模型生成完整叙事 checkpoint；hook 脚本只能写机械派生的最小状态摘要。
+- auto checkpoint 的事实来源只应是 `.context/state.json`、`.context/plan.md`
+  指针和 `.context/verification.jsonl` 最新记录。
+- 不能把不稳定 transcript 当作长期事实来源。
 
 最低要求：
 
@@ -598,7 +600,7 @@ ecc:council
 - 增加 verification freshness 规则。
 - 要求验证记录包含 `session_id`、`turn_id`、`changed_files`、`changed_files_fingerprint`。
 - 明确 Stop hook 只接受当前 changed-files fingerprint 匹配的 passed 记录。
-- 明确 `PreCompact` 只做机械检查和短提示，真正 checkpoint 由 Codex 根据当前上下文写入。
+- 明确 `PreCompact` 只写机械派生的最小 auto checkpoint，不替模型生成完整叙事 checkpoint。
 
 结果：通过。
 
