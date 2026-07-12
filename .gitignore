@@ -42,3 +42,4 @@ vibe-coding-*.json
 .env
 .env.*
 !.env.example
+.aider*
